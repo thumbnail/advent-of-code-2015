@@ -6,6 +6,7 @@ import (
 	"encoding/hex"
 	"flag"
 	"fmt"
+	"math"
 	"strings"
 )
 
@@ -16,25 +17,49 @@ func hash(s string, i int) string {
 	return hex.EncodeToString(hash[:])
 }
 
+func findHash(prefix string, seed string, data chan int, result chan int) {
+	for i := range data {
+		h := hash(seed, i)
+
+		if strings.HasPrefix(h, prefix) {
+			result <- i
+			break
+		}
+	}
+}
+
+func task(prefix string, seed string) int {
+	channel := make(chan int, math.MaxInt32)
+	defer close(channel)
+
+	result := make(chan int, 1)
+
+	for i := 0; i < 10; i++ {
+		go findHash(prefix, seed, channel, result)
+	}
+
+	for i := 0; i < math.MaxInt32; i++ {
+		select {
+		case r := <-result:
+			return r
+		default:
+			channel <- i
+		}
+	}
+
+	panic("No solution")
+}
+
 func main() {
 	var part int
 	flag.IntVar(&part, "part", 1, "part 1 or 2")
 	flag.Parse()
-	fmt.Println("Running part", part)
+	println("Running part", part)
 
 	var prefix = "00000"
 	if part == 2 {
 		prefix = "000000"
 	}
 
-	var h = ""
-	var i = 0
-	for !strings.HasPrefix(h, prefix) {
-		i++
-		h = hash(input, i)
-		if i%100000 == 0 {
-			fmt.Println("attempt", i)
-		}
-	}
-	fmt.Println("Answer: ", i)
+	println("Answer:", task(prefix, input))
 }
