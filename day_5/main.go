@@ -3,7 +3,6 @@ package main
 import (
 	_ "embed"
 	"flag"
-	"fmt"
 	"strings"
 )
 
@@ -95,7 +94,7 @@ func main() {
 	var part int
 	flag.IntVar(&part, "part", 1, "part 1 or 2")
 	flag.Parse()
-	fmt.Println("Running part", part)
+	println("Running part", part)
 
 	var total = 0
 	for _, line := range strings.Split(input, "\n") {
@@ -110,6 +109,6 @@ func main() {
 		}
 	}
 
-	fmt.Println("Answer: ", total)
+	println("Answer:", total)
 
 }

@@ -3,7 +3,6 @@ package main
 import (
 	_ "embed"
 	"flag"
-	"fmt"
 	"regexp"
 	"slices"
 	"strconv"
@@ -43,7 +42,7 @@ func main() {
 	var part int
 	flag.IntVar(&part, "part", 1, "part 1 or 2")
 	flag.Parse()
-	fmt.Println("Running part", part)
+	println("Running part", part)
 
 	routes := make(map[string]map[string]int)
 	for _, line := range strings.Split(input, "\n") {
@@ -87,8 +86,8 @@ func main() {
 	}
 
 	if part == 1 {
-		fmt.Printf("Answer: %v\n", shortest)
+		println("Answer:", shortest.cost)
 	} else {
-		fmt.Printf("Answer: %v\n", longest)
+		println("Answer:", longest.cost)
 	}
 }

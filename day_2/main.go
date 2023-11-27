@@ -3,7 +3,6 @@ package main
 import (
 	_ "embed"
 	"flag"
-	"fmt"
 	"regexp"
 	"slices"
 	"strconv"
@@ -39,7 +38,7 @@ func part1() {
 
 		total += 2*side1 + 2*side2 + 2*side3 + min(side1, side2, side3)
 	}
-	fmt.Println("Answer: ", total)
+	println("Answer:", total)
 }
 
 func part2() {
@@ -54,14 +53,14 @@ func part2() {
 
 		total += l*w*h + 2*xs[0] + 2*xs[1]
 	}
-	fmt.Println("Answer: ", total)
+	println("Answer:", total)
 }
 
 func main() {
 	var part int
 	flag.IntVar(&part, "part", 1, "part 1 or 2")
 	flag.Parse()
-	fmt.Println("Running part", part)
+	println("Running part", part)
 
 	if part == 1 {
 		part1()

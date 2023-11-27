@@ -66,7 +66,7 @@ func main() {
 	var part int
 	flag.IntVar(&part, "part", 1, "part 1 or 2")
 	flag.Parse()
-	fmt.Println("Running part", part)
+	println("Running part", part)
 
 	var wires = make(map[string]int)
 	for _, line := range strings.Split(input, "\n") {
@@ -78,7 +78,7 @@ func main() {
 	}
 
 	if part == 1 {
-		println("Answer: ", wires["a"])
+		println("Answer:", wires["a"])
 		return
 	}
 
@@ -94,5 +94,5 @@ func main() {
 
 		wires = process(wires, line)
 	}
-	println("Answer: ", wires["a"])
+	println("Answer:", wires["a"])
 }

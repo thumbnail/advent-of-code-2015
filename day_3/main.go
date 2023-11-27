@@ -3,7 +3,6 @@ package main
 import (
 	_ "embed"
 	"flag"
-	"fmt"
 )
 
 //go:embed input.txt
@@ -30,7 +29,7 @@ func main() {
 	var part int
 	flag.IntVar(&part, "part", 1, "part 1 or 2")
 	flag.Parse()
-	fmt.Println("Running part", part)
+	println("Running part", part)
 
 	var santaPos = [2]int{0, 0}
 	var robotPos = [2]int{0, 0}
@@ -50,5 +49,5 @@ func main() {
 		}
 	}
 
-	fmt.Println("Answer: ", total)
+	println("Answer:", total)
 }

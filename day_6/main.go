@@ -3,7 +3,6 @@ package main
 import (
 	_ "embed"
 	"flag"
-	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
@@ -51,7 +50,7 @@ func main() {
 	var part int
 	flag.IntVar(&part, "part", 1, "part 1 or 2")
 	flag.Parse()
-	fmt.Println("Running part", part)
+	println("Running part", part)
 
 	var lights = make(map[[2]int]int)
 
@@ -77,5 +76,5 @@ func main() {
 		total += light
 	}
 
-	fmt.Println("Answer: ", total)
+	println("Answer:", total)
 }
