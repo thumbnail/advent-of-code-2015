@@ -3,7 +3,7 @@ package main
 import (
 	_ "embed"
 	"flag"
-	"slices"
+	"math"
 	"strconv"
 	"strings"
 )
@@ -19,22 +19,46 @@ func main() {
 
 	buckets := parseInput(input)
 	var path []int
-	println("Answer:", len(calc(buckets, path, 150)))
+	paths := calc(buckets, 0, path, 150)
+
+	answer := 0
+
+	if part == 1 {
+		answer = len(paths)
+	} else {
+		minLen := math.MaxInt32
+		for _, path := range paths {
+			if minLen > len(path) {
+				minLen = len(path)
+			}
+		}
+
+		for _, path := range paths {
+			if len(path) == minLen {
+				answer++
+			}
+		}
+
+	}
+
+	println("Answer:", answer)
 }
 
-func calc(buckets []int, path []int, liters int) (paths [][]int) {
+func calc(buckets []int, start int, path []int, liters int) [][]int {
 	if liters == 0 {
 		return [][]int{path}
 	}
 
-	for i, bucket := range buckets {
-		if bucket <= liters && !slices.Contains(path, i) {
-			path = append(path, i)
-			paths = append(paths, calc(buckets, path, liters-bucket)...)
-		}
+	if liters < 0 {
+		return nil
 	}
 
-	return
+	var paths [][]int
+	for i := start; i < len(buckets); i++ {
+		paths = append(paths, calc(buckets, i+1, append(path, i), liters-buckets[i])...)
+	}
+
+	return paths
 }
 
 func parseInput(s string) []int {
