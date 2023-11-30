@@ -4,8 +4,9 @@ import (
 	_ "embed"
 	"flag"
 	"regexp"
-	"strconv"
 	"strings"
+
+	"github.com/thumbnail/advent-of-code-2015/util"
 )
 
 //go:embed input.txt
@@ -86,14 +87,14 @@ func parseInput(t string) map[int]map[string]int {
 		}
 
 		matches := pattern.FindStringSubmatch(line)
-		sue := toInt(matches[1])
+		sue := util.ParseInt(matches[1])
 		_, found := sues[sue]
 		if !found {
 			sues[sue] = make(map[string]int)
 		}
-		sues[sue][matches[2]] = toInt(matches[3])
-		sues[sue][matches[4]] = toInt(matches[5])
-		sues[sue][matches[6]] = toInt(matches[7])
+		sues[sue][matches[2]] = util.ParseInt(matches[3])
+		sues[sue][matches[4]] = util.ParseInt(matches[5])
+		sues[sue][matches[6]] = util.ParseInt(matches[7])
 	}
 	return sues
 }
@@ -102,17 +103,9 @@ func parseTicker(s string) map[string]int {
 	ticker := make(map[string]int)
 	for _, line := range strings.Split(s, "\n") {
 		r := strings.Split(line, ": ")
-		ticker[r[0]] = toInt(r[1])
+		ticker[r[0]] = util.ParseInt(r[1])
 	}
 	return ticker
-}
-
-func toInt(input string) int {
-	i, err := strconv.Atoi(input)
-	if err != nil {
-		panic(err)
-	}
-	return i
 }
 
 var equals = func(a, b int) bool {

@@ -4,8 +4,9 @@ import (
 	_ "embed"
 	"flag"
 	"math"
-	"strconv"
 	"strings"
+
+	"github.com/thumbnail/advent-of-code-2015/util"
 )
 
 //go:embed input.txt
@@ -67,15 +68,7 @@ func parseInput(s string) []int {
 		if string(line) == "" {
 			continue
 		}
-		buckets = append(buckets, toInt(line))
+		buckets = append(buckets, util.ParseInt(line))
 	}
 	return buckets
-}
-
-func toInt(input string) int {
-	i, err := strconv.Atoi(input)
-	if err != nil {
-		panic(err)
-	}
-	return i
 }

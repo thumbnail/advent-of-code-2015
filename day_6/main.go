@@ -4,8 +4,9 @@ import (
 	_ "embed"
 	"flag"
 	"regexp"
-	"strconv"
 	"strings"
+
+	"github.com/thumbnail/advent-of-code-2015/util"
 )
 
 //go:embed input.txt
@@ -15,11 +16,11 @@ var pattern = regexp.MustCompile(`(turn on|turn off|toggle) (\d+),(\d+) through 
 
 func parseLine(line string) (int, int, int, int, string) {
 	match := pattern.FindStringSubmatch(line)
-	x1, _ := strconv.Atoi(match[2])
-	y1, _ := strconv.Atoi(match[3])
-	x2, _ := strconv.Atoi(match[4])
-	y2, _ := strconv.Atoi(match[5])
-	return x1, y1, x2, y2, match[1]
+	return util.ParseInt(match[2]),
+		util.ParseInt(match[3]),
+		util.ParseInt(match[4]),
+		util.ParseInt(match[5]),
+		match[1]
 }
 
 func step1(x int, y int, action string, lights map[[2]int]int) map[[2]int]int {

@@ -5,8 +5,9 @@ import (
 	"flag"
 	"regexp"
 	"slices"
-	"strconv"
 	"strings"
+
+	"github.com/thumbnail/advent-of-code-2015/util"
 )
 
 //go:embed input.txt
@@ -52,7 +53,8 @@ func main() {
 		r := pattern.FindStringSubmatch(line)
 		from := r[1]
 		to := r[2]
-		distance, _ := strconv.Atoi(r[3])
+		distance := util.ParseInt(r[3])
+
 		_, found := routes[from]
 
 		if !found {

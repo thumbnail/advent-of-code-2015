@@ -5,8 +5,9 @@ import (
 	"flag"
 	"regexp"
 	"slices"
-	"strconv"
 	"strings"
+
+	"github.com/thumbnail/advent-of-code-2015/util"
 )
 
 //go:embed input.txt
@@ -38,7 +39,7 @@ func parseGraph(input string, included bool) map[string]map[string]int {
 			}
 		}
 
-		distance, _ := strconv.Atoi(matches[3])
+		distance := util.ParseInt(matches[3])
 		if matches[2] == "lose" {
 			distance = -distance
 		}

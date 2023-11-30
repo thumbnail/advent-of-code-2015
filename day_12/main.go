@@ -5,7 +5,8 @@ import (
 	"encoding/json"
 	"flag"
 	"regexp"
-	"strconv"
+
+	"github.com/thumbnail/advent-of-code-2015/util"
 )
 
 //go:embed input.txt
@@ -19,8 +20,7 @@ func sum(input string) int {
 
 	total := 0
 	for _, match := range result {
-		number, _ := strconv.Atoi(match)
-		total += number
+		total += util.ParseInt(match)
 	}
 	return total
 }

@@ -5,8 +5,9 @@ import (
 	"flag"
 	"regexp"
 	"slices"
-	"strconv"
 	"strings"
+
+	"github.com/thumbnail/advent-of-code-2015/util"
 )
 
 //go:embed input.txt
@@ -20,10 +21,9 @@ func parseLine(line string) (int, int, int) {
 		return 0, 0, 0
 	}
 
-	var l, _ = strconv.Atoi(match[1])
-	var w, _ = strconv.Atoi(match[2])
-	var h, _ = strconv.Atoi(match[3])
-	return l, w, h
+	return util.ParseInt(match[1]),
+		util.ParseInt(match[2]),
+		util.ParseInt(match[3])
 }
 
 func part1() {

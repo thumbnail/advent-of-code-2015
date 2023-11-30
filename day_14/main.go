@@ -4,8 +4,9 @@ import (
 	_ "embed"
 	"flag"
 	"regexp"
-	"strconv"
 	"strings"
+
+	"github.com/thumbnail/advent-of-code-2015/util"
 )
 
 //go:embed input.txt
@@ -35,21 +36,9 @@ func parseInput(input string) []Reindeer {
 			continue
 		}
 		r := pattern.FindStringSubmatch(line)
-		speed, err := strconv.Atoi(r[2])
-		if err != nil {
-			panic(err)
-		}
-		duration, err := strconv.Atoi(r[3])
-		if err != nil {
-			panic(err)
-		}
-		rest, err := strconv.Atoi(r[4])
 
-		if err != nil {
-			panic(err)
-		}
-
-		l = append(l, Reindeer{r[1], speed, duration, rest, &State{0, 0, 0, duration}})
+		duration := util.ParseInt(r[3])
+		l = append(l, Reindeer{r[1], util.ParseInt(r[2]), duration, util.ParseInt(r[4]), &State{0, 0, 0, duration}})
 	}
 	return l
 }
